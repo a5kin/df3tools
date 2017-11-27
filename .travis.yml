@@ -21,7 +21,6 @@ install:
     - pip install --quiet codeclimate-test-reporter
 
 script:
-    - bundle exec rspec
     - if [[ $TRAVIS_PYTHON_VERSION == 2* || $TRAVIS_PYTHON_VERSION == 3* ]]; then tox -e $(echo $TRAVIS_PYTHON_VERSION | sed 's/\.//g;s/^/py/'); fi
     - if [[ $TRAVIS_PYTHON_VERSION == 'pypy'* ]]; then tox -e $TRAVIS_PYTHON_VERSION; fi
     - coverage run --source df3tools -m unittest discover -s tests
