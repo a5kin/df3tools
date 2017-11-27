@@ -17,8 +17,8 @@ python:
 
 install:
     - pip install --quiet tox
-    - pip install --quite coverage
-    - pip install --quite codeclimate-test-reporter
+    - pip install --quiet coverage
+    - pip install --quiet codeclimate-test-reporter
 
 script:
     - bundle exec rspec
