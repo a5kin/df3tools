@@ -17,7 +17,7 @@ python:
 
 install:
     - pip install --quiet tox
-    - pip install --quiet coverage
+    - pip install --quiet coverage==4.3
     - pip install --quiet codeclimate-test-reporter
 
 script:
