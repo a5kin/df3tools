@@ -7,22 +7,12 @@ https://github.com/pypa/sampleproject
 """
 
 from setuptools import setup, find_packages
-# from codecs import open
+from codecs import open
 from os import path
-# import glob
 
 here = path.abspath(path.dirname(__file__))
-# print(glob.glob(here + "/*"))
-# with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-#    long_description = f.read()
-long_description = """
-df3tools
-========
-
-Command-line tools to convert POV-Ray density files (DF3) to a set of images
-and vise versa.
-
-"""
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='df3tools',
@@ -48,6 +38,8 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: Implementation :: PyPy',
     ],
     keywords='povray pov-ray density file df3 commandline tools utils utility',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
@@ -56,10 +48,10 @@ setup(
         'dev': ['check-manifest'],
         'test': ['coverage'],
     },
-    package_data={
-        'df3tools': ['README.rst'],
-    },
-    data_files=[('df3tools', ['README.rst'])],
+    # package_data={
+    #     'df3tools': ['README.rst'],
+    # },
+    # data_files=[('df3tools', ['README.rst'])],
     entry_points={
         'console_scripts': [
             'df3split=df3tools.df3split:main',
