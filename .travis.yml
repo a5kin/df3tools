@@ -3,7 +3,7 @@ sudo: false
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=d68291eeca6e05e737c08e8f1bac6ebf708a169b204ca34d26e2267fdc7f5164
+    - CODECLIMATE_REPO_TOKEN=d68291eeca6e05e737c08e8f1bac6ebf708a169b204ca34d26e2267fdc7f5164
 
 language: python
 python:
