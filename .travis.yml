@@ -1,6 +1,10 @@
 # Use containers instead of full VMs for faster startup.
 sudo: false
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=d68291eeca6e05e737c08e8f1bac6ebf708a169b204ca34d26e2267fdc7f5164
+
 language: python
 python:
     - "2.7"
@@ -14,6 +18,15 @@ python:
 
 install: pip install --quiet tox
 
+rvm:
+    - 2.2.0
+before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
 script:
+    - bundle exec rspec
     - if [[ $TRAVIS_PYTHON_VERSION == 2* || $TRAVIS_PYTHON_VERSION == 3* ]]; then tox -e $(echo $TRAVIS_PYTHON_VERSION | sed 's/\.//g;s/^/py/'); fi
     - if [[ $TRAVIS_PYTHON_VERSION == 'pypy'* ]]; then tox -e $TRAVIS_PYTHON_VERSION; fi
+after_script:
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
