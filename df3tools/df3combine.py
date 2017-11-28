@@ -51,7 +51,7 @@ def df3combine(filename, prefix="layer", silent=True):
         # write layers data
         for img_num, img_name in enumerate(files):
             img = Image.open(img_name)
-            img_data = img.convert("L").tostring("raw", "L")
+            img_data = img.convert("L").tobytes("raw", "L")
             df3_file.write(img_data)
             percentage = float(img_num + 1) / num_layers * 100
             if not silent:
