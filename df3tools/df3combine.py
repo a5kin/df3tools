@@ -42,17 +42,17 @@ def df3combine(filename, prefix="layer", silent=True):
     if not silent:
         print("Size: %dx%d, %d layers" % (width, height, num_layers))
 
-    with open(filename, "wb") as f:
+    with open(filename, "wb") as df3_file:
         # write header
-        f.write(to_big_endian(width)[-2:])
-        f.write(to_big_endian(height)[-2:])
-        f.write(to_big_endian(num_layers)[-2:])
+        df3_file.write(to_big_endian(width)[-2:])
+        df3_file.write(to_big_endian(height)[-2:])
+        df3_file.write(to_big_endian(num_layers)[-2:])
 
         # write layers data
         for img_num, img_name in enumerate(files):
             img = Image.open(img_name)
             img_data = img.convert("L").tostring("raw", "L")
-            f.write(img_data)
+            df3_file.write(img_data)
             percentage = float(img_num + 1) / num_layers * 100
             if not silent:
                 sys.stdout.write("Processing data [%.2f%%]\r" % percentage)
