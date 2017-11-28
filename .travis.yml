@@ -19,6 +19,7 @@ install:
     - pip install --quiet tox
     - pip install --quiet coverage==4.3
     - pip install --quiet codeclimate-test-reporter
+    - pip install --quiet Pillow
 
 script:
     - if [[ $TRAVIS_PYTHON_VERSION == 2* || $TRAVIS_PYTHON_VERSION == 3* ]]; then tox -e $(echo $TRAVIS_PYTHON_VERSION | sed 's/\.//g;s/^/py/'); fi
