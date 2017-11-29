@@ -1,2 +1,8 @@
+"""
+Package specific exceptions
+
+"""
+
+
 class Df3Exception(Exception):
-    """ Module specific exception """
+    """ Generic df3tools exception """
