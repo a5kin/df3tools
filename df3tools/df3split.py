@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 A command-line tool for spliting POV-Ray density file (DF3)
 to a series of separate images.
@@ -118,7 +117,3 @@ def main():
     args = parser.parse_args()
 
     df3split(args.df3file, args.prefix, args.format, args.silent)
-
-
-if __name__ == "__main__":
-    main()

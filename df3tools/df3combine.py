@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 A command-line tool for combining multiple image files into
 POV-Ray density file (DF3).
@@ -75,7 +74,3 @@ def main():
     args = parser.parse_args()
 
     df3combine(args.df3file, args.prefix, args.silent)
-
-
-if __name__ == "__main__":
-    main()
