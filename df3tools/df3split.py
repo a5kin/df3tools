@@ -7,10 +7,13 @@ to a series of separate images.
 
 from __future__ import print_function
 import sys
+import os
 import argparse
 import struct
 
 from PIL import Image
+
+from df3tools.exceptions import Df3Exception
 
 
 def from_big_endian(bytestring):
@@ -36,6 +39,9 @@ def df3split(filename, prefix="layer", img_format='tga', silent=True):
     :param silent: suppress output (info messages, progress etc.)
 
     """
+    if os.isfile(filename):
+        raise Df3Exception("File not found: " + filename)
+
     with open(filename, "rb") as df3_file:
         # detect size
         header = df3_file.read(6)

@@ -13,9 +13,7 @@ import glob
 
 from PIL import Image
 
-
-class Df3Exception(Exception):
-    """ Module specific exception """
+from df3tools.exceptions import Df3Exception
 
 
 def to_big_endian(value):
