@@ -20,6 +20,28 @@ def to_big_endian(value):
     return struct.pack(">L", value)
 
 
+def detect_size(prefix, silent):
+    """
+    Detect image size and number of layers.
+
+    :param prefix: input files prefix
+    :param silent: suppress output (info messages, progress etc.)
+
+    :returns: Tuple with sizes.
+
+    """
+    files = sorted(glob.glob(prefix + "*"))
+    num_layers = len(files)
+    if num_layers == 0:
+        raise Df3Exception("No files found with prefix '%s'" % prefix)
+
+    width, height = Image.open(files[0]).size
+    if not silent:
+        print("Size: %dx%d, %d layers" % (width, height, num_layers))
+
+    return (files, width, height, num_layers)
+
+
 def df3combine(filename, prefix="layer", silent=True):
     """
     Combine a series of separate images into POV-Ray density file (DF3).
@@ -29,15 +51,7 @@ def df3combine(filename, prefix="layer", silent=True):
     :param silent: suppress output (info messages, progress etc.)
 
     """
-    files = sorted(glob.glob(prefix + "*"))
-    num_layers = len(files)
-    if num_layers == 0:
-        raise Df3Exception("No files found with prefix '%s'" % prefix)
-
-    # detect layers size by first image
-    width, height = Image.open(files[0]).size
-    if not silent:
-        print("Size: %dx%d, %d layers" % (width, height, num_layers))
+    files, width, height, num_layers = detect_size(prefix, silent)
 
     with open(filename, "wb") as df3_file:
         # write header
