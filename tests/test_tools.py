@@ -56,15 +56,15 @@ class TestDf3Tools(unittest.TestCase):
         with self.assertRaises(SystemExit):
             df3combine.main()
 
-    @unittest.skip("Raise FileNotFoundError")
     def test_abscent_file(self):
         """
         Test behavior when DF3 file not found
 
         """
         args = sys.argv
-        sys.argv = ['df3split.py', 'data/nofile.df3']
-        df3split.main()
+        with self.assertRaises(df3combine.Df3Exception):
+            sys.argv = ['df3split.py', 'data/nofile.df3']
+            df3split.main()
         sys.argv = args
 
     def test_no_layers(self):
