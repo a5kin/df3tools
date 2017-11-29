@@ -29,6 +29,42 @@ def split_by_n(seq, chunk_size):
         seq = seq[chunk_size:]
 
 
+def detect_size(df3_file, silent):
+    """
+    Detect image size and number of layers.
+
+    :param df3_file: DF3 file descriptor.
+    :param silent: suppress output (info messages, progress etc.)
+
+    :returns: Tuple with sizes.
+
+    """
+    header = df3_file.read(6)
+    sizes = [from_big_endian(v) for v in split_by_n(header, 2)]
+    width, height, num_layers = sizes
+    if not silent:
+        print("Size: %dx%d, %d layers" % (width, height, num_layers))
+
+    return (width, height, num_layers)
+
+
+def detect_byte_width(data, num_voxels, silent):
+    """
+    Detect byte width.
+
+    :param data: Byte string with DF3 body.
+    :param num_voxels: Number of voxels in file.
+    :param silent: suppress output (info messages, progress etc.)
+
+    """
+    byte_width = int(float(len(data)) / num_voxels)
+    if not silent:
+        plural = ' s'[byte_width > 1]
+        print("Voxel resolution: %d byte%s" % (byte_width, plural))
+
+    return byte_width
+
+
 def df3split(filename, prefix="layer", img_format='tga', silent=True):
     """
     Split POV-Ray density file (DF3) to a series of separate images.
@@ -43,24 +79,13 @@ def df3split(filename, prefix="layer", img_format='tga', silent=True):
         raise Df3Exception("File not found: " + filename)
 
     with open(filename, "rb") as df3_file:
-        # detect size
-        header = df3_file.read(6)
-        sizes = [from_big_endian(v) for v in split_by_n(header, 2)]
-        width, height, num_layers = sizes
-        if not silent:
-            print("Size: %dx%d, %d layers" % (width, height, num_layers))
+        width, height, num_layers = detect_size(df3_file, silent)
 
-        # detect byte width
         data = df3_file.read()
-        byte_width = int(float(len(data)) / (width * height * num_layers))
-        if not silent:
-            plural = ' s'[byte_width > 1]
-            print("Voxel resolution: %d byte%s" % (byte_width, plural))
+        detect_byte_width(data, width * height * num_layers, silent)
 
         # parse data and save images
         for img_num, img_data in enumerate(split_by_n(data, width * height)):
-            # values = split_by_n(img_data, byte_width)
-            # pixels = [from_big_endian(v) for v in values]
             layer_num = str(img_num).zfill(len(str(num_layers)))
             img = Image.new("L", (width, height))
             img.putdata(img_data)
