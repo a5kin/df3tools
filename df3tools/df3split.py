@@ -39,7 +39,7 @@ def df3split(filename, prefix="layer", img_format='tga', silent=True):
     :param silent: suppress output (info messages, progress etc.)
 
     """
-    if os.isfile(filename):
+    if not os.path.isfile(filename):
         raise Df3Exception("File not found: " + filename)
 
     with open(filename, "rb") as df3_file:
