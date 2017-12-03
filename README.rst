@@ -79,20 +79,18 @@ Usage
 
 Positional arguments:
 ---------------------
+::
 
-df3file
-    Filename of density file to split.
+    df3file    Filename of density file to split.
 
 Optional arguments:
 -------------------
+::
 
--h, --help                        Show help message and exit.
-
--t {tga,png}, --format {tga,png}  Output files format.
-
--p PREFIX, --prefix PREFIX        Output files prefix.
-
--s, --silent                      Suppress output.
+    -h, --help                        Show help message and exit.
+    -t {tga,png}, --format {tga,png}  Output files format.
+    -p PREFIX, --prefix PREFIX        Output files prefix.
+    -s, --silent                      Suppress output.
 
 ----------
 df3combine
@@ -108,18 +106,17 @@ Usage:
 
 Positional arguments:
 ---------------------
+::
 
-df3file
-    Filename of density file to combine images into.
+    df3file    Filename of density file to combine images into.
 
 Optional arguments:
 -------------------
+::
 
--h, --help                        Show help message and exit.
-
--p PREFIX, --prefix PREFIX        Input files prefix.
-
--s, --silent                      Suppress output.
+    -h, --help                        Show help message and exit.
+    -p PREFIX, --prefix PREFIX        Input files prefix.
+    -s, --silent                      Suppress output.
 
 Note, images format is autodetected. You may combine any type of
 images, supported by Pillow.
